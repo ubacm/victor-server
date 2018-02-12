@@ -13,7 +13,7 @@ app.post('/checkin', function (req, res) {
   const code = req.body.text
 
   fetch('https://chicken-ubacm.herokuapp.com/checkin', {
-    method: "POST",
+    method: 'POST',
     headers: {
       'api_key': token,
       'slack_id': user,
@@ -25,6 +25,27 @@ app.post('/checkin', function (req, res) {
   }).then((e) => e.json())
   .then((json) => { 
     res.send(json.message)
+  })
+})
+
+app.post('/score', function (req, res) {
+  const token = req.body.token
+  const user = req.body.user_id
+
+  fetch('https://chicken-ubacm.herokuapp.com/score', {
+    method: 'GET',
+    headers: {
+      'api_key': token,
+      'slack_id': user,
+      'Content-Type': 'application/json',
+    }
+  }).then((e) => e.json())
+  .then((json) => {
+    if (json.message) {
+      res.send(json.message)
+      return
+    }
+    res.send('Your score is: ' + json.score)
   })
 })
 
@@ -84,7 +105,7 @@ app.post('/event', function (req, res) {
 
 function createEvent(name, weight, token, user, res) {
   fetch('https://chicken-ubacm.herokuapp.com/event/new', {
-    method: "POST",
+    method: 'POST',
     headers: {
       'api_key': token,
       'slack_id': user,
