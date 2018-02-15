@@ -11,7 +11,8 @@ app.post('/checkin', function (req, res) {
   const token = req.body.token
   const user = req.body.user_id
   const code = req.body.text
-
+  const username = req.body.user_name
+  console.log(req.body)
   fetch('https://chicken-ubacm.herokuapp.com/checkin', {
     method: 'POST',
     headers: {
@@ -21,6 +22,7 @@ app.post('/checkin', function (req, res) {
     },
     body: JSON.stringify({
       'check_in_code': code,
+      'username': username,
     })
   }).then((e) => e.json())
   .then((json) => { 
