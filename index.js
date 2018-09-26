@@ -13,7 +13,7 @@ app.post('/checkin', function (req, res) {
   const code = req.body.text
   const username = req.body.user_name
   console.log(req.body)
-  fetch('https://chicken-ubacm.herokuapp.com/checkin', {
+  fetch('https://checkin-chicken.herokuapp.com/checkin', {
     method: 'POST',
     headers: {
       'api_key': token,
@@ -34,7 +34,7 @@ app.post('/score', function (req, res) {
   const token = req.body.token
   const user = req.body.user_id
 
-  fetch('https://chicken-ubacm.herokuapp.com/score', {
+  fetch('https://checkin-chicken.herokuapp.com/score', {
     method: 'GET',
     headers: {
       'api_key': token,
@@ -49,6 +49,10 @@ app.post('/score', function (req, res) {
     }
     res.send('Your score is: ' + json.score)
   })
+})
+
+app.post('/score', function (req, res) {
+
 })
 
 app.post('/event', function (req, res) {
@@ -106,7 +110,7 @@ app.post('/event', function (req, res) {
 })
 
 function createEvent(name, weight, token, user, res) {
-  fetch('https://chicken-ubacm.herokuapp.com/event/new', {
+  fetch('https://checkin-chicken.herokuapp.com/event/new', {
     method: 'POST',
     headers: {
       'api_key': token,
@@ -129,7 +133,7 @@ function createEvent(name, weight, token, user, res) {
 }
 
 function listEvents(active, token, user, res) {
-  fetch('https://chicken-ubacm.herokuapp.com/event/list' + (active ? '/active' : ''), {
+  fetch('https://checkin-chicken.herokuapp.com/event/list' + (active ? '/active' : ''), {
     headers: {
       'api_key': token,
       'slack_id': user,
@@ -150,7 +154,7 @@ function listEvents(active, token, user, res) {
 }
 
 function setEventStatus(status, code, token, user, res) {
-  fetch(('https://chicken-ubacm.herokuapp.com/event/' + status), {
+  fetch(('https://checkin-chicken.herokuapp.com/event/' + status), {
     method: 'PUT',
     headers: {
       'api_key': token,
